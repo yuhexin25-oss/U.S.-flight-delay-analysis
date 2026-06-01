@@ -48,13 +48,13 @@ make database
 python3 -m src.visualization.export_dashboard_data
 ```
 
-Open the dashboard directly:
+Open the GitHub Pages compatible dashboard directly from the repository root:
 
 ```bash
-open web/index.html
+open index.html
 ```
 
-No build step is required. The visualization libraries load from CDNs, while realistic demonstration records are embedded locally in `web/app.js`. You can also serve the website at `http://localhost:8000` with `make serve`.
+No build step is required. The visualization libraries load from CDNs, while realistic demonstration records are embedded locally in `app.js` for direct `file://` viewing. Matching processed JSON files under `data/processed/` document the future real-data contract. You can also serve the website at `http://localhost:8000` with `python3 -m http.server 8000`.
 
 ## Pipeline
 
@@ -102,12 +102,12 @@ The bundled sample is intentionally small and exists to verify the platform, not
 The website includes:
 
 - A responsive dark aviation command-center interface with sidebar navigation
-- An interactive Leaflet airport map with bubble, heatmap, and combined layers
-- Metric and airport-type filters for delay, cancellation rate, and flight volume
+- An interactive Leaflet airport map with bubble, heatmap, combined, and route-line layers
+- Global year, season, airline, delay-threshold, metric, and airport-type filters
 - Airport search, clickable rankings, detail metrics, and weather summaries
 - A D3.js route-network explorer with hover tooltips and linked node selection
-- A D3.js hub-versus-regional airport comparison
-- Plotly monthly delay trends and operational delay-cause analysis
+- Dedicated hub-versus-regional, airline, route-ranking, and seasonal sections
+- Plotly monthly trends, delay causes, comparisons, rankings, and seasonal analysis
 
 ## Future Work
 

@@ -1,0 +1,10 @@
+[
+  {"airline":"Delta","code":"DL","average_delay":14.2,"cancellation_rate":1.0,"weather_delay_share":14,"carrier_delay_share":21,"late_aircraft_delay_share":36,"on_time_rate":82.4},
+  {"airline":"American","code":"AA","average_delay":18.5,"cancellation_rate":1.7,"weather_delay_share":15,"carrier_delay_share":25,"late_aircraft_delay_share":33,"on_time_rate":77.8},
+  {"airline":"United","code":"UA","average_delay":19.1,"cancellation_rate":1.8,"weather_delay_share":17,"carrier_delay_share":22,"late_aircraft_delay_share":30,"on_time_rate":77.1},
+  {"airline":"Southwest","code":"WN","average_delay":17.8,"cancellation_rate":1.4,"weather_delay_share":13,"carrier_delay_share":24,"late_aircraft_delay_share":42,"on_time_rate":78.5},
+  {"airline":"JetBlue","code":"B6","average_delay":25.7,"cancellation_rate":2.9,"weather_delay_share":18,"carrier_delay_share":25,"late_aircraft_delay_share":27,"on_time_rate":70.3},
+  {"airline":"Alaska","code":"AS","average_delay":13.6,"cancellation_rate":0.9,"weather_delay_share":16,"carrier_delay_share":22,"late_aircraft_delay_share":36,"on_time_rate":83.0},
+  {"airline":"Spirit","code":"NK","average_delay":23.9,"cancellation_rate":2.4,"weather_delay_share":12,"carrier_delay_share":31,"late_aircraft_delay_share":34,"on_time_rate":71.6},
+  {"airline":"Frontier","code":"F9","average_delay":22.4,"cancellation_rate":2.1,"weather_delay_share":13,"carrier_delay_share":29,"late_aircraft_delay_share":33,"on_time_rate":73.2}
+]

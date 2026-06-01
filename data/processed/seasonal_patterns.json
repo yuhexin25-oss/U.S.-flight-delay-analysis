@@ -1,0 +1,6 @@
+[
+  {"season":"Winter","average_delay":23.6,"cancellation_rate":2.8,"weather_delay_share":27,"nas_delay_share":24},
+  {"season":"Spring","average_delay":15.4,"cancellation_rate":1.1,"weather_delay_share":13,"nas_delay_share":27},
+  {"season":"Summer","average_delay":22.1,"cancellation_rate":1.7,"weather_delay_share":21,"nas_delay_share":32},
+  {"season":"Fall","average_delay":14.8,"cancellation_rate":0.9,"weather_delay_share":11,"nas_delay_share":25}
+]

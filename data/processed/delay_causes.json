@@ -1,0 +1,11 @@
+[
+  {"group":"overall","weather_delay":16.0,"carrier_delay":23.5,"nas_delay":27.9,"security_delay":1.1,"late_aircraft_delay":31.5},
+  {"group":"Delta","weather_delay":14.0,"carrier_delay":21.0,"nas_delay":28.0,"security_delay":1.0,"late_aircraft_delay":36.0},
+  {"group":"American","weather_delay":15.0,"carrier_delay":25.0,"nas_delay":26.0,"security_delay":1.0,"late_aircraft_delay":33.0},
+  {"group":"United","weather_delay":17.0,"carrier_delay":22.0,"nas_delay":30.0,"security_delay":1.0,"late_aircraft_delay":30.0},
+  {"group":"Southwest","weather_delay":13.0,"carrier_delay":24.0,"nas_delay":20.0,"security_delay":1.0,"late_aircraft_delay":42.0},
+  {"group":"JetBlue","weather_delay":18.0,"carrier_delay":25.0,"nas_delay":29.0,"security_delay":1.0,"late_aircraft_delay":27.0},
+  {"group":"Alaska","weather_delay":16.0,"carrier_delay":22.0,"nas_delay":25.0,"security_delay":1.0,"late_aircraft_delay":36.0},
+  {"group":"Spirit","weather_delay":12.0,"carrier_delay":31.0,"nas_delay":22.0,"security_delay":1.0,"late_aircraft_delay":34.0},
+  {"group":"Frontier","weather_delay":13.0,"carrier_delay":29.0,"nas_delay":24.0,"security_delay":1.0,"late_aircraft_delay":33.0}
+]

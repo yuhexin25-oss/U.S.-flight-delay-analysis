@@ -14,4 +14,4 @@ data/raw/*
 data/processed/*
 !data/processed/.gitkeep
 !data/processed/sample_airport_metrics.csv
-
+!data/processed/*.json
