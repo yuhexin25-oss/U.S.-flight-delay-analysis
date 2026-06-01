@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="FlightScope interactive U.S. aviation delay analytics dashboard">
+  <title>FlightScope | Aviation Analytics Console</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <a class="brand" href="#overview"><span class="brand-mark">FS</span><span>FLIGHT<em>SCOPE</em><small>AVIATION INTELLIGENCE</small></span></a>
+    <nav>
+      <a class="active" href="#overview"><b>01</b><span>Command Center</span></a>
+      <a href="#map-panel"><b>02</b><span>Delay Map</span></a>
+      <a href="#airport-detail"><b>03</b><span>Airport Explorer</span></a>
+      <a href="#network-panel"><b>04</b><span>Route Network</span></a>
+      <a href="#causes-panel"><b>05</b><span>Delay Causes</span></a>
+      <a href="#trends-panel"><b>06</b><span>Time Series</span></a>
+    </nav>
+    <div class="sidebar-foot">
+      <span class="live-dot"></span>
+      <div><strong>MOCK DATA STREAM</strong><small>UPDATED 04:35 UTC</small></div>
+    </div>
+  </aside>
+
+  <main class="shell">
+    <header class="topbar">
+      <div>
+        <p class="kicker">NATIONAL AIRSPACE SYSTEM / DOMESTIC OPERATIONS</p>
+        <h1>U.S. Flight Delay <span>Command Center</span></h1>
+      </div>
+      <div class="topbar-actions">
+        <label class="search">
+          <span>⌕</span>
+          <input id="airport-search" type="search" placeholder="Search airport or city..." autocomplete="off">
+          <div id="search-results" class="search-results"></div>
+        </label>
+        <div class="clock"><span>UTC</span><strong id="utc-clock">--:--:--</strong></div>
+      </div>
+    </header>
+
+    <section class="hero panel" id="overview">
+      <div class="hero-copy">
+        <p class="kicker cyan">AVIATION OPERATIONS ANALYTICS / 2025 DEMONSTRATION</p>
+        <h2>Track the pressure points<br>across America's airspace.</h2>
+        <p>Explore realistic mock BTS-style metrics for airport performance, route connectivity, delay causes, and seasonal disruption. Every panel is interactive and linked to the selected airport.</p>
+        <div class="hero-actions">
+          <a class="button" href="#map-panel">OPEN LIVE MAP <b>↗</b></a>
+          <span><i class="live-dot"></i> 24 AIRPORTS MONITORED</span>
+        </div>
+      </div>
+      <div class="hero-radar" aria-label="Decorative route radar">
+        <div class="radar ring-1"></div><div class="radar ring-2"></div><div class="radar ring-3"></div>
+        <i class="scan"></i><i class="radar-point p1"></i><i class="radar-point p2"></i><i class="radar-point p3"></i><i class="radar-point p4"></i>
+        <span class="radar-label rl1">JFK</span><span class="radar-label rl2">ATL</span><span class="radar-label rl3">DEN</span><span class="radar-label rl4">LAX</span>
+      </div>
+    </section>
+
+    <section class="stats-grid" aria-label="Key statistics">
+      <article class="metric-card"><div><span>01</span><small>TOTAL FLIGHTS</small></div><strong>1.84<em>M</em></strong><p><b>↑ 4.8%</b> vs previous quarter</p></article>
+      <article class="metric-card"><div><span>02</span><small>AVG ARRIVAL DELAY</small></div><strong id="stat-delay">18.7<em>m</em></strong><p><b class="warn">↑ 2.3m</b> network baseline</p></article>
+      <article class="metric-card"><div><span>03</span><small>CANCELLATION RATE</small></div><strong id="stat-cancel">1.8<em>%</em></strong><p><b>↓ 0.4%</b> vs previous quarter</p></article>
+      <article class="metric-card"><div><span>04</span><small>ROUTES ANALYZED</small></div><strong>312</strong><p><b>●</b> domestic network</p></article>
+    </section>
+
+    <section class="panel map-panel" id="map-panel">
+      <header class="panel-head">
+        <div><p class="kicker cyan">GEOSPATIAL OPERATIONS VIEW</p><h2>National delay landscape</h2></div>
+        <div class="control-row">
+          <label><span>MAP LAYER</span><select id="map-layer"><option value="markers">Airport bubbles</option><option value="heat">Delay heatmap</option><option value="both">Combined view</option></select></label>
+          <label><span>METRIC</span><select id="map-metric"><option value="delay">Average delay</option><option value="cancel">Cancellation rate</option><option value="flights">Flight volume</option></select></label>
+          <label><span>AIRPORT TYPE</span><select id="airport-type"><option value="all">All airports</option><option value="hub">Major hubs</option><option value="regional">Regional airports</option></select></label>
+        </div>
+      </header>
+      <div class="map-wrap">
+        <div id="map"></div>
+        <div class="map-legend"><small>DELAY INTENSITY</small><i></i><span>LOW</span><span>HIGH</span></div>
+        <div class="map-message" id="map-message">Click an airport to inspect operations</div>
+      </div>
+    </section>
+
+    <section class="split-grid detail-row">
+      <article class="panel airport-card" id="airport-detail">
+        <header class="panel-head compact"><div><p class="kicker cyan">AIRPORT DETAIL PANEL</p><h2><span id="detail-code">ORD</span> <small id="detail-name">Chicago O'Hare International</small></h2></div><span class="type-badge" id="detail-type">MAJOR HUB</span></header>
+        <div class="airport-body">
+          <div class="airport-summary">
+            <div class="delay-gauge"><strong id="detail-delay">27.4</strong><span>MIN AVG DELAY</span></div>
+            <p id="detail-location">Chicago, IL · Midwest Region</p>
+            <p id="detail-weather">☁ Broken clouds · Wind 14 kt</p>
+          </div>
+          <div class="mini-metrics">
+            <div><small>FLIGHTS / DAY</small><strong id="detail-flights">2,381</strong></div>
+            <div><small>CANCELLATIONS</small><strong id="detail-cancel">2.9%</strong></div>
+            <div><small>ON-TIME RATE</small><strong id="detail-ontime">71.0%</strong></div>
+            <div><small>DELAY RANK</small><strong id="detail-rank">#03</strong></div>
+          </div>
+        </div>
+      </article>
+      <article class="panel ranking-card">
+        <header class="panel-head compact"><div><p class="kicker cyan">AIRPORT RANKINGS</p><h2>Highest average delays</h2></div><span class="tiny-badge">TOP 06</span></header>
+        <div id="airport-ranking" class="ranking-list"></div>
+      </article>
+    </section>
+
+    <section class="split-grid chart-row">
+      <article class="panel chart-panel" id="trends-panel">
+        <header class="panel-head compact"><div><p class="kicker cyan">TIME SERIES ANALYSIS</p><h2>Monthly delay trend</h2></div><div class="chart-legend"><i></i> SELECTED AIRPORT <i></i> NETWORK AVG</div></header>
+        <div id="trend-chart" class="plot"></div>
+      </article>
+      <article class="panel chart-panel comparison-card">
+        <header class="panel-head compact"><div><p class="kicker cyan">SEGMENT COMPARISON</p><h2>Hub vs regional</h2></div></header>
+        <div id="comparison-chart"></div>
+      </article>
+    </section>
+
+    <section class="panel network-panel" id="network-panel">
+      <header class="panel-head">
+        <div><p class="kicker cyan">ROUTE NETWORK EXPLORER</p><h2>Connectivity and delay propagation</h2></div>
+        <div class="control-row">
+          <label><span>FOCUS AIRPORT</span><select id="network-airport"></select></label>
+          <label><span>MAX ROUTES</span><select id="route-limit"><option>8</option><option selected>14</option><option>20</option></select></label>
+        </div>
+      </header>
+      <div class="network-layout">
+        <div id="network-chart"></div>
+        <aside class="network-aside">
+          <p class="kicker cyan">SELECTED NODE</p><strong id="network-code">ORD</strong>
+          <div><small>CONNECTED ROUTES</small><b id="network-routes">14</b></div>
+          <div><small>OUTBOUND VOLUME</small><b id="network-volume">16,230</b></div>
+          <div><small>AVG ROUTE DELAY</small><b id="network-delay">22.1m</b></div>
+          <p>Hover over a route to inspect directional traffic and delay intensity.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="split-grid bottom-row">
+      <article class="panel chart-panel" id="causes-panel">
+        <header class="panel-head compact"><div><p class="kicker cyan">DELAY CAUSE DASHBOARD</p><h2>Operational disruption mix</h2></div><span class="tiny-badge">MINUTES / FLIGHT</span></header>
+        <div id="cause-chart" class="plot"></div>
+      </article>
+      <article class="panel intelligence-card">
+        <header class="panel-head compact"><div><p class="kicker cyan">SYSTEM INTELLIGENCE</p><h2>Operational signals</h2></div></header>
+        <div class="signal critical"><span>HIGH</span><p><strong>Weather disruption</strong><br>ORD and JFK exceed seasonal weather-delay baseline.</p></div>
+        <div class="signal medium"><span>MED</span><p><strong>Route pressure</strong><br>DEN → SFO carries elevated NAS delay intensity.</p></div>
+        <div class="signal normal"><span>LOW</span><p><strong>Regional resilience</strong><br>Southeast regional cancellation rates remain stable.</p></div>
+      </article>
+    </section>
+
+    <footer><span>FLIGHTSCOPE / U.S. FLIGHT DELAY ANALYSIS</span><span>DATA SCIENCE · GIS · AVIATION ANALYTICS</span><span>MOCK BTS-STYLE DATA / PORTFOLIO DEMO</span></footer>
+  </main>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

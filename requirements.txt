@@ -1,0 +1,11 @@
+duckdb>=1.1
+numpy>=2.0
+pandas>=2.2
+plotly>=5.24
+networkx>=3.3
+jupyterlab>=4.2
+
+# Optional GIS and modeling modules
+geopandas>=1.0
+scikit-learn>=1.5
+

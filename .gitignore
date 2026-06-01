@@ -1,0 +1,17 @@
+.DS_Store
+.env
+.venv/
+__pycache__/
+*.py[cod]
+*.duckdb
+*.duckdb.wal
+.ipynb_checkpoints/
+.pytest_cache/
+
+# Raw and generated data can be large. Keep only placeholders and the small demo dataset.
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+!data/processed/sample_airport_metrics.csv
+
