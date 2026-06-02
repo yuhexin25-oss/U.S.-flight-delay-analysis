@@ -9,16 +9,16 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <aside class="sidebar">
-    <a class="brand" href="#overview"><span class="brand-mark">FS</span><span>FLIGHT<em>SCOPE</em><small>INTERACTIVE AVIATION DELAY INTELLIGENCE DEMO</small></span></a>
+    <a class="brand" href="#overview"><span class="brand-mark">FS</span><span>FLIGHT<em>SCOPE</em><small>AVIATION INTELLIGENCE</small></span></a>
     <nav>
       <a class="active" href="#overview"><b>01</b><span>Command Center</span></a>
-      <a href="#map-panel"><b>02</b><span>Interactive Delay Map</span></a>
+      <a href="#map-panel"><b>02</b><span>Delay Map</span></a>
       <a href="#airport-detail"><b>03</b><span>Airport Explorer</span></a>
-      <a href="#network-panel"><b>04</b><span>Route Delay Network</span></a>
+      <a href="#network-panel"><b>04</b><span>Route Network</span></a>
       <a href="#causes-panel"><b>05</b><span>Delay Causes</span></a>
       <a href="#airline-panel"><b>06</b><span>Airlines</span></a>
       <a href="#route-panel"><b>07</b><span>Route Rankings</span></a>
@@ -27,18 +27,17 @@
     </nav>
     <div class="sidebar-foot">
       <span class="demo-dot"></span>
-      <div><strong>DEMO</strong><small>MOCK DATA STREAM</small></div>
+      <div><strong>INTERACTIVE DEMO</strong><small>MOCK BTS-STYLE DATA</small></div>
     </div>
   </aside>
 
   <main class="shell">
     <header class="topbar">
       <div>
-        <p class="kicker">INTERACTIVE AVIATION DELAY INTELLIGENCE DEMO</p>
+        <p class="kicker">NATIONAL AIRSPACE SYSTEM / DOMESTIC OPERATIONS</p>
         <h1>U.S. Flight Delay <span>Command Center</span></h1>
       </div>
       <div class="topbar-actions">
-        <span class="header-demo-badge">DEMO DATA · NOT REAL-TIME</span>
         <label class="search">
           <span>⌕</span>
           <input id="airport-search" type="search" placeholder="Search airport or city..." autocomplete="off">
@@ -50,8 +49,8 @@
 
     <div class="data-status" role="status">
       <span class="demo-dot"></span>
-      <strong>Data status</strong>
-      <p>This version uses mock BTS-style demo data. It is not real-time flight data.</p>
+      <strong>Interactive Demo</strong>
+      <p>Current version uses mock BTS-style demo data. Not real-time flight data.</p>
     </div>
 
     <section class="hero panel" id="overview">
@@ -92,7 +91,7 @@
 
     <section class="panel map-panel" id="map-panel">
       <header class="panel-head">
-        <div><p class="kicker cyan">GEOSPATIAL OPERATIONS VIEW</p><h2>Interactive U.S. Delay Map</h2></div>
+        <div><p class="kicker cyan">GEOSPATIAL OPERATIONS VIEW</p><h2>National delay landscape</h2></div>
         <div class="control-row">
           <label><span>MAP LAYER</span><select id="map-layer"><option value="markers">Airport bubbles</option><option value="heat">Delay heatmap</option><option value="both">Combined view</option></select></label>
           <label><span>METRIC</span><select id="map-metric"><option value="delay">Average delay</option><option value="cancel">Cancellation rate</option><option value="flights">Flight volume</option></select></label>
@@ -143,7 +142,7 @@
 
     <section class="panel network-panel" id="network-panel">
       <header class="panel-head">
-        <div><p class="kicker cyan">ROUTE NETWORK EXPLORER</p><h2>Route Delay Network</h2></div>
+        <div><p class="kicker cyan">ROUTE NETWORK EXPLORER</p><h2>Connectivity and delay propagation</h2></div>
         <div class="control-row">
           <label><span>FOCUS AIRPORT</span><select id="network-airport"></select></label>
           <label><span>MAX ROUTES</span><select id="route-limit"><option>8</option><option selected>14</option><option>20</option></select></label>
@@ -228,8 +227,8 @@
     </section>
 
     <section class="analysis-section panel sources-panel" id="sources-panel">
-      <header class="panel-head"><div><p class="kicker cyan">DATA SOURCES / METHODOLOGY</p><h2>From interactive demo to reproducible aviation research</h2></div><span class="tiny-badge">ROADMAP</span></header>
-      <p class="sources-intro">Current version: mock BTS-style demo data for the visualization prototype. Future version: BTS On-Time Performance historical data, OpenFlights and FAA airport coordinates and infrastructure data, and NOAA weather data. No real-time API is currently connected.</p>
+      <header class="panel-head"><div><p class="kicker cyan">DATA SOURCES / FUTURE INTEGRATION</p><h2>From interactive demo to reproducible aviation research</h2></div><span class="tiny-badge">ROADMAP</span></header>
+      <p class="sources-intro">This portfolio version uses realistic mock BTS-style data to demonstrate the complete analytics experience. The architecture is prepared for future ingestion and validation against authoritative aviation and weather sources.</p>
       <div class="sources-grid">
         <article><span>01</span><h3>BTS On-Time Performance</h3><p>Flight schedules, arrival and departure delays, cancellations, diversions, taxi times, and official delay-cause fields.</p><a href="https://www.transtats.bts.gov/ontime/" target="_blank" rel="noreferrer">VIEW SOURCE ↗</a></article>
         <article><span>02</span><h3>OpenFlights Airports</h3><p>Airport names, IATA and ICAO identifiers, coordinates, elevation, city, country, and timezone metadata.</p><a href="https://openflights.org/data.html" target="_blank" rel="noreferrer">VIEW SOURCE ↗</a></article>
@@ -245,6 +244,6 @@
   <script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
   <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
-  <script src="./app.js" defer></script>
+  <script src="app.js"></script>
 </body>
 </html>
