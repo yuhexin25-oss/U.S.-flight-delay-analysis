@@ -8,7 +8,7 @@
 
 ## Overview
 
-The primary deliverable is a complete interactive aviation analytics website. The dark-themed FlightScope command center ships with realistic mock BTS-style data, so it is immediately useful before downloading large source extracts. The repository also includes a repeatable ETL skeleton, analytical DuckDB schema, reusable airport and route analysis helpers, and a notebook starter for future real-data research.
+The primary deliverable is a complete interactive aviation analytics website. The dark-themed FlightScope command center ships with realistic mock BTS-style data, so it is immediately useful before downloading large source extracts. **The current version is an interactive demo, not a real-time flight-data feed.** The repository also includes a repeatable ETL skeleton, analytical DuckDB schema, reusable airport and route analysis helpers, and a notebook starter for future real-data research.
 
 ## Research Motivation
 

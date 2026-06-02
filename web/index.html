@@ -20,11 +20,14 @@
       <a href="#airport-detail"><b>03</b><span>Airport Explorer</span></a>
       <a href="#network-panel"><b>04</b><span>Route Network</span></a>
       <a href="#causes-panel"><b>05</b><span>Delay Causes</span></a>
-      <a href="#trends-panel"><b>06</b><span>Time Series</span></a>
+      <a href="#airline-panel"><b>06</b><span>Airlines</span></a>
+      <a href="#route-panel"><b>07</b><span>Route Rankings</span></a>
+      <a href="#seasonal-panel"><b>08</b><span>Seasonality</span></a>
+      <a href="#sources-panel"><b>09</b><span>Data Sources</span></a>
     </nav>
     <div class="sidebar-foot">
-      <span class="live-dot"></span>
-      <div><strong>MOCK DATA STREAM</strong><small>UPDATED 04:35 UTC</small></div>
+      <span class="demo-dot"></span>
+      <div><strong>INTERACTIVE DEMO</strong><small>MOCK BTS-STYLE DATA</small></div>
     </div>
   </aside>
 
@@ -44,14 +47,20 @@
       </div>
     </header>
 
+    <div class="data-status" role="status">
+      <span class="demo-dot"></span>
+      <strong>Interactive Demo</strong>
+      <p>Current version uses mock BTS-style demo data. Not real-time flight data.</p>
+    </div>
+
     <section class="hero panel" id="overview">
       <div class="hero-copy">
         <p class="kicker cyan">AVIATION OPERATIONS ANALYTICS / 2025 DEMONSTRATION</p>
         <h2>Track the pressure points<br>across America's airspace.</h2>
         <p>Explore realistic mock BTS-style metrics for airport performance, route connectivity, delay causes, and seasonal disruption. Every panel is interactive and linked to the selected airport.</p>
         <div class="hero-actions">
-          <a class="button" href="#map-panel">OPEN LIVE MAP <b>↗</b></a>
-          <span><i class="live-dot"></i> 24 AIRPORTS MONITORED</span>
+          <a class="button" href="#map-panel">OPEN INTERACTIVE MAP <b>↗</b></a>
+          <span><i class="demo-dot"></i> DEMO AIRPORT NETWORK</span>
         </div>
       </div>
       <div class="hero-radar" aria-label="Decorative route radar">
@@ -61,11 +70,23 @@
       </div>
     </section>
 
+    <section class="panel filter-console" aria-label="Global dashboard filters">
+      <div><p class="kicker cyan">GLOBAL DATA CONTROLS</p><h2>Filter the operational picture</h2></div>
+      <div class="control-row wide">
+        <label><span>YEAR</span><select id="year-filter"><option>2025</option><option>2024</option><option>2023</option><option>2022</option><option>2021</option><option>2020</option><option>2019</option></select></label>
+        <label><span>SEASON</span><select id="season-filter"><option value="all">All seasons</option><option>Winter</option><option>Spring</option><option>Summer</option><option>Fall</option></select></label>
+        <label><span>AIRLINE</span><select id="airline-filter"><option value="all">All airlines</option><option>Delta</option><option>American</option><option>United</option><option>Southwest</option><option>JetBlue</option><option>Alaska</option><option>Spirit</option><option>Frontier</option></select></label>
+        <label class="range-control"><span>MINIMUM DELAY <b id="threshold-value">0 MIN</b></span><input id="delay-threshold" type="range" min="0" max="35" value="0"></label>
+      </div>
+    </section>
+
     <section class="stats-grid" aria-label="Key statistics">
       <article class="metric-card"><div><span>01</span><small>TOTAL FLIGHTS</small></div><strong>1.84<em>M</em></strong><p><b>↑ 4.8%</b> vs previous quarter</p></article>
       <article class="metric-card"><div><span>02</span><small>AVG ARRIVAL DELAY</small></div><strong id="stat-delay">18.7<em>m</em></strong><p><b class="warn">↑ 2.3m</b> network baseline</p></article>
       <article class="metric-card"><div><span>03</span><small>CANCELLATION RATE</small></div><strong id="stat-cancel">1.8<em>%</em></strong><p><b>↓ 0.4%</b> vs previous quarter</p></article>
       <article class="metric-card"><div><span>04</span><small>ROUTES ANALYZED</small></div><strong>312</strong><p><b>●</b> domestic network</p></article>
+      <article class="metric-card"><div><span>05</span><small>MOST DELAYED AIRPORT</small></div><strong class="code-stat">EWR</strong><p><b class="warn">33.1m</b> average delay</p></article>
+      <article class="metric-card"><div><span>06</span><small>MOST DELAYED ROUTE</small></div><strong class="route-stat">SFO–EWR</strong><p><b class="warn">38.6m</b> average delay</p></article>
     </section>
 
     <section class="panel map-panel" id="map-panel">
@@ -75,6 +96,7 @@
           <label><span>MAP LAYER</span><select id="map-layer"><option value="markers">Airport bubbles</option><option value="heat">Delay heatmap</option><option value="both">Combined view</option></select></label>
           <label><span>METRIC</span><select id="map-metric"><option value="delay">Average delay</option><option value="cancel">Cancellation rate</option><option value="flights">Flight volume</option></select></label>
           <label><span>AIRPORT TYPE</span><select id="airport-type"><option value="all">All airports</option><option value="hub">Major hubs</option><option value="regional">Regional airports</option></select></label>
+          <label><span>ROUTE LINES</span><select id="route-lines"><option value="high">High-delay routes</option><option value="all">All routes</option><option value="none">Hide routes</option></select></label>
         </div>
       </header>
       <div class="map-wrap">
@@ -151,7 +173,71 @@
       </article>
     </section>
 
-    <footer><span>FLIGHTSCOPE / U.S. FLIGHT DELAY ANALYSIS</span><span>DATA SCIENCE · GIS · AVIATION ANALYTICS</span><span>MOCK BTS-STYLE DATA / PORTFOLIO DEMO</span></footer>
+    <section class="analysis-section panel" id="hub-panel">
+      <header class="panel-head">
+        <div><p class="kicker cyan">HUB VS REGIONAL DELAY ANALYSIS</p><h2>How airport scale changes operational resilience</h2></div>
+        <span class="tiny-badge">COMPARATIVE STUDY</span>
+      </header>
+      <div class="summary-strip" id="hub-summary"></div>
+      <p class="analysis-note"><strong>How to read this:</strong> Hub airports generally carry higher average delays because dense route networks amplify congestion. Regional airports operate fewer flights, but cancellation and variability metrics reveal where limited service can create greater instability for travelers.</p>
+      <div class="analysis-grid three">
+        <article><h3>Average delay by airport</h3><div id="hub-delay-chart" class="large-plot"></div></article>
+        <article><h3>Cancellation rate</h3><div id="hub-cancel-chart" class="large-plot"></div></article>
+        <article><h3>Delay variability</h3><div id="hub-variability-chart" class="large-plot"></div></article>
+      </div>
+    </section>
+
+    <section class="analysis-section panel" id="causes-detail-panel">
+      <header class="panel-head">
+        <div><p class="kicker cyan">BTS DELAY CAUSE ANALYSIS</p><h2>What drives disruption across the network?</h2></div>
+        <div class="control-row"><label><span>COMPARE BY</span><select id="cause-group"><option value="airline">Airline</option><option value="season">Season</option><option value="airport">Airport</option></select></label></div>
+      </header>
+      <div class="analysis-grid cause-layout">
+        <article><h3>Delay cause breakdown</h3><div id="cause-stacked-chart" class="wide-plot"></div></article>
+        <article><h3>Overall delay share</h3><div id="cause-donut-chart" class="wide-plot"></div></article>
+      </div>
+      <div class="cause-definitions">
+        <span class="definition-tooltip" tabindex="0" data-tooltip="Weather Delay: delays caused by severe weather or weather-related conditions.">WEATHER</span>
+        <span class="definition-tooltip" tabindex="0" data-tooltip="Carrier Delay: delays caused by airline operations, maintenance, crew, or aircraft issues.">CARRIER</span>
+        <span class="definition-tooltip" tabindex="0" data-tooltip="NAS Delay: National Airspace System delays, including congestion and air traffic control.">NAS</span>
+        <span class="definition-tooltip" tabindex="0" data-tooltip="Security Delay: delays caused by security-related events.">SECURITY</span>
+        <span class="definition-tooltip" tabindex="0" data-tooltip="Late Aircraft Delay: delays caused by an aircraft arriving late from a previous flight.">LATE AIRCRAFT</span>
+      </div>
+    </section>
+
+    <section class="analysis-section panel" id="airline-panel">
+      <header class="panel-head"><div><p class="kicker cyan">AIRLINE PERFORMANCE COMPARISON</p><h2>Carrier reliability and operational pressure</h2></div><span class="tiny-badge">08 CARRIERS</span></header>
+      <div id="airline-cards" class="airline-cards"></div>
+      <div class="analysis-grid"><article><h3>Airline delay ranking</h3><div id="airline-ranking-chart" class="wide-plot"></div></article><article><h3>Carrier delay cause mix</h3><div id="airline-cause-chart" class="wide-plot"></div></article></div>
+    </section>
+
+    <section class="analysis-section panel" id="route-panel">
+      <header class="panel-head"><div><p class="kicker cyan">ROUTE DELAY RANKING</p><h2>Corridors carrying the most disruption</h2></div><span class="tiny-badge">HOVER MAP ROUTES TO LINK</span></header>
+      <div class="route-analysis-layout">
+        <div class="route-table-wrap"><table><thead><tr><th>ROUTE</th><th>FLIGHTS</th><th>AVG DELAY</th><th>CANCELLED</th><th>VARIABILITY</th><th>SEVERITY</th></tr></thead><tbody id="route-table"></tbody></table></div>
+        <aside class="route-detail" id="route-detail"><p class="kicker cyan">SELECTED ROUTE</p><strong>SFO → EWR</strong><span>38.6 MIN AVERAGE DELAY</span><small>Hover over a route line or ranking row to inspect the corridor.</small></aside>
+      </div>
+      <div id="route-ranking-chart" class="route-plot"></div>
+    </section>
+
+    <section class="analysis-section panel" id="seasonal-panel">
+      <header class="panel-head"><div><p class="kicker cyan">SEASONAL DELAY PATTERNS</p><h2>How weather and congestion shift through the year</h2></div><span class="tiny-badge">WINTER → FALL</span></header>
+      <div id="season-cards" class="season-cards"></div>
+      <div class="analysis-grid"><article><h3>Seasonal delay trend</h3><div id="season-line-chart" class="wide-plot"></div></article><article><h3>Weather and NAS delay share</h3><div id="season-bar-chart" class="wide-plot"></div></article></div>
+    </section>
+
+    <section class="analysis-section panel sources-panel" id="sources-panel">
+      <header class="panel-head"><div><p class="kicker cyan">DATA SOURCES / FUTURE INTEGRATION</p><h2>From interactive demo to reproducible aviation research</h2></div><span class="tiny-badge">ROADMAP</span></header>
+      <p class="sources-intro">This portfolio version uses realistic mock BTS-style data to demonstrate the complete analytics experience. The architecture is prepared for future ingestion and validation against authoritative aviation and weather sources.</p>
+      <div class="sources-grid">
+        <article><span>01</span><h3>BTS On-Time Performance</h3><p>Flight schedules, arrival and departure delays, cancellations, diversions, taxi times, and official delay-cause fields.</p><a href="https://www.transtats.bts.gov/ontime/" target="_blank" rel="noreferrer">VIEW SOURCE ↗</a></article>
+        <article><span>02</span><h3>OpenFlights Airports</h3><p>Airport names, IATA and ICAO identifiers, coordinates, elevation, city, country, and timezone metadata.</p><a href="https://openflights.org/data.html" target="_blank" rel="noreferrer">VIEW SOURCE ↗</a></article>
+        <article><span>03</span><h3>FAA Airport Data</h3><p>Hub classification, airport type, tower status, runway count, runway length, and infrastructure capacity indicators.</p><a href="https://www.faa.gov/airports" target="_blank" rel="noreferrer">VIEW SOURCE ↗</a></article>
+        <article><span>04</span><h3>NOAA Weather Data</h3><p>Visibility, wind speed, temperature, precipitation, and storm events for airport-level weather impact analysis.</p><a href="https://www.ncei.noaa.gov/cdo-web/" target="_blank" rel="noreferrer">VIEW SOURCE ↗</a></article>
+      </div>
+    </section>
+
+    <footer><span>FLIGHTSCOPE / U.S. FLIGHT DELAY ANALYSIS</span><span>DATA SCIENCE · GIS · AVIATION ANALYTICS</span><span>INTERACTIVE DEMO / NOT REAL-TIME DATA</span></footer>
   </main>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
