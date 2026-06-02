@@ -8,7 +8,11 @@
 
 ## Overview
 
-The primary deliverable is a complete interactive aviation analytics website. The dark-themed FlightScope command center ships with realistic mock BTS-style data, so it is immediately useful before downloading large source extracts. The repository also includes a repeatable ETL skeleton, analytical DuckDB schema, reusable airport and route analysis helpers, and a notebook starter for future real-data research.
+The primary deliverable is a complete interactive aviation analytics website.
+
+> **Data disclaimer:** This project currently uses mock BTS-style demo data. It is designed as a visualization prototype. Real BTS, FAA, OpenFlights, and NOAA datasets will be integrated in the next phase. No real-time flight API is currently connected.
+
+The repository also includes a repeatable ETL skeleton, analytical DuckDB schema, reusable airport and route analysis helpers, and a notebook starter for future historical-data research.
 
 ## Research Motivation
 
@@ -30,6 +34,8 @@ Delays are not isolated events. They reflect airport capacity, airline operation
 | [OpenFlights Airport Database](https://openflights.org/data.html) | Airport coordinates and metadata | Reference downloader ready |
 | [FAA Airports](https://www.faa.gov/airports) | Infrastructure, runway, tower, and hub fields | Schema extension planned |
 | [NOAA Climate Data Online](https://www.ncei.noaa.gov/cdo-web/) | Visibility, wind, precipitation, temperature, and storms | Weather join module planned |
+
+The current dashboard data is a historical-style demonstration dataset for interface development. It is not a live stream and should not be interpreted as current operational flight status.
 
 ## Quick Start
 
